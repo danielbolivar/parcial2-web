@@ -1,5 +1,5 @@
 import { Location } from "src/location/entities/location.entity";
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Character {
@@ -32,11 +32,12 @@ export class Character {
     })
     location: Location;
 
-    @OneToMany(() => Location, location => location.favCharacters, {
+    @ManyToMany(() => Location, location => location.favCharacters, {
         cascade: true,
         eager: true,
         nullable: true,
     })
+    @JoinTable()
     favPlaces: Location[];
 
 }

@@ -1,5 +1,5 @@
 import { Character } from "src/character/entities/character.entity";
-import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Location {
@@ -17,9 +17,10 @@ export class Location {
     cost: number;
 
     @OneToOne(() => Character, character => character.location)
+    @JoinColumn({ name: 'ownerId' })
     owner: Character
 
-    @ManyToOne(() => Character, character => character.favPlaces)
+    @ManyToMany(() => Character, character => character.favPlaces)
     favCharacters: Character[];
 
 }
