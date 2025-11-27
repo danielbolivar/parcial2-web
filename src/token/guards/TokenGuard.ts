@@ -17,13 +17,16 @@ export class TokenGuard implements CanActivate {
 
         const token = await this.tokenRepository.findOneBy({token: tokenHeader});
 
-        if (!token) {
+        if (!token || tokenHeader === undefined) {
             return false;
         }
 
-        if (!token.active && token.reqLeft <= 0) {
+        if (!token.active || token.reqLeft <= 0) {
             return false;
         }
+
+        token.reqLeft -= 1;
+        await this.tokenRepository.save(token);
 
         return true;
 
