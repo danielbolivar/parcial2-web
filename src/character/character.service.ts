@@ -17,7 +17,12 @@ export class CharacterService {
 
   async calculateTaxes(id: number) {
 
-    const character = await this.characterRepository.findOneBy({id: id});
+    const character = await this.characterRepository.findOne(
+      {
+        where: { id: id },
+        relations: ['location'],
+      }
+    );
 
     if (!character) {
       throw new Error('Character not found');
