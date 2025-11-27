@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { CreateLocationDto } from './dto/create-location.dto';
+import { TokenGuard } from 'src/token/guards/TokenGuard';
 
 @Controller('location')
+@UseGuards(TokenGuard)
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
 

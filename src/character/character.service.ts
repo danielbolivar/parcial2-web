@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Character } from './entities/character.entity';
-import { Repository } from 'typeorm/browser/repository/Repository.js';
+import { Repository } from 'typeorm';
 import { Location } from 'src/location/entities/location.entity';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class CharacterService {
   constructor(
     @InjectRepository(Character)
     private characterRepository: Repository<Character>,
-    @InjectRepository(Location)
+    @Inject()
     private locationRepository: Repository<Location>,
   ) {}
 

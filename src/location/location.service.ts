@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateLocationDto } from './dto/create-location.dto';
-import { Repository } from 'typeorm/browser/repository/Repository.js';
+import { Repository } from 'typeorm';
 import { Character } from 'src/character/entities/character.entity';
 import { Location } from './entities/location.entity';
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
@@ -53,6 +53,14 @@ export class LocationService {
 
     return locations;
 
+  }
+
+  async findOne(id: number) {
+    return this.locationRepository.findOneBy({id});
+  }
+
+  async save(location: Location) {
+    return this.locationRepository.save(location);
   }
 
 }

@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Token } from "../entities/token.entity";
-import { Repository } from "typeorm/browser/repository/Repository.js";
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -29,4 +29,5 @@ export class TokenGuard implements CanActivate {
 
 
     }
+
 }
