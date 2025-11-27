@@ -11,7 +11,7 @@ export class CharacterService {
   constructor(
     @InjectRepository(Character)
     private characterRepository: Repository<Character>,
-    @Inject()
+    @InjectRepository(Location)
     private locationRepository: Repository<Location>,
   ) {}
 
