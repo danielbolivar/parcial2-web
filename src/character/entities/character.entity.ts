@@ -27,14 +27,12 @@ export class Character {
 
     @OneToOne(() => Location, location => location.owner, {
         cascade: true,
-        eager: true,
         nullable: true,
     })
     location: Location;
 
     @ManyToMany(() => Location, location => location.favCharacters, {
         cascade: true,
-        eager: true,
         nullable: true,
     })
     @JoinTable()

@@ -42,17 +42,32 @@ export class CharacterService {
 
   async addFavoriteLocation(idChar: number, idLocation: number) {
 
-    const location = await this.locationRepository.findOneBy({id: idLocation});
-    const character = await this.characterRepository.findOneBy({id: idChar});
+    const location = await this.locationRepository.findOne(
+      {
+        where: { id: idLocation },
+      }
+    );
+
+    const character = await this.characterRepository.findOne(
+      {
+        where: { id: idChar },
+        relations: ['favPlaces'],
+      }
+    );
 
     if (!location || !character) {
       throw new Error('Character or Location not found');
     }
 
-    character.favPlaces.push(location);
-    location.favCharacters.push(character);
+    if (!character.favPlaces) {
+      character.favPlaces = [];
+    }
 
-    await this.locationRepository.save(location);
+    const exists = character.favPlaces.some(loc => loc.id === idLocation);
+    if (!exists) {
+      character.favPlaces.push(location);
+    }
+
     return this.characterRepository.save(character);
 
   }
