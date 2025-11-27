@@ -27,13 +27,15 @@ export class Character {
 
     @OneToOne(() => Location, location => location.owner, {
         cascade: true,
-        eager: true
+        eager: true,
+        nullable: true,
     })
     location: Location;
 
     @OneToMany(() => Location, location => location.favCharacters, {
         cascade: true,
         eager: true,
+        nullable: true,
     })
     favPlaces: Location[];
 

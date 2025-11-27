@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CharacterService } from './character.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
-import { UpdateCharacterDto } from './dto/update-character.dto';
 
 @Controller('character')
 export class CharacterController {
@@ -12,23 +11,17 @@ export class CharacterController {
     return this.characterService.create(createCharacterDto);
   }
 
-  @Get()
-  findAll() {
-    return this.characterService.findAll();
+  @Patch(':id/location/:locationId')
+  addFavoriteLocation(
+    @Param('id') id: string,
+    @Param('locationId') locationId: string,
+  ) {
+    return this.characterService.addFavoriteLocation(+id, +locationId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.characterService.findOne(+id);
+  @Get(':id/taxes')
+  calculateTaxes(@Param('id') id: string) {
+    return this.characterService.calculateTaxes(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
-    return this.characterService.update(+id, updateCharacterDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.characterService.remove(+id);
-  }
 }
