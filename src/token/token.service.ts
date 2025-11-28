@@ -43,7 +43,7 @@ export class TokenService {
       throw new Error('Token not found');
     }
 
-    if (!token.active && token.reqLeft <= 0) {
+    if (!token.active || token.reqLeft <= 0) {
       return false;
     }
 
