@@ -24,12 +24,8 @@ export class TokenGuard implements CanActivate {
         if (!token.active || token.reqLeft <= 0) {
             return false;
         }
-
-        token.reqLeft -= 1;
-        await this.tokenRepository.save(token);
-
+        
         return true;
-
 
     }
 
